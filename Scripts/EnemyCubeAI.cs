@@ -39,7 +39,6 @@ public class EnemyCubeAI : MonoBehaviour {
 
 	void rotate () {
 		Vector3 newDirection = Vector3.RotateTowards (transform.forward, new Vector3(player.transform.position.x - transform.position.x, 0, player.transform.position.z - transform.position.z), speed * Time.deltaTime, 0.0f);
-		Debug.DrawRay (transform.position, newDirection, Color.red);
 		transform.rotation = Quaternion.LookRotation (newDirection);
 	}
 
