@@ -6,9 +6,6 @@ public class PlayerCubeScript : MonoBehaviour {
 	// Gets rigidbody to apply forces
 	public Rigidbody player;
 
-	// For jumping, needs to be fixed
-	public GameObject ground;
-
 	// Base speed for the player
 	public float speed = 100.0f;
 
