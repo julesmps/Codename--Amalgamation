@@ -21,13 +21,20 @@ public class PlayerCubeScript : MonoBehaviour {
 
 	// Jump mechanic resets once you hit the ground
 	int jumps = 0;
+	bool canDoubleJump = false;
 
 	void OnCollisionEnter (Collision collision){
-		if(collision.gameObject){
+		if (collision.gameObject) {
 			jumps = 0;
 		}
 	}
 
+	void OnCollisionExit (Collision collision){
+		if (collision.gameObject) {
+			jumps = 1;
+		}
+	}
+	
 	void Update () {
 
 		// If jump key than jump
@@ -35,7 +42,6 @@ public class PlayerCubeScript : MonoBehaviour {
 			player.velocity = new Vector2 (0, jumpPower);
 			jumps++;
 		}
-
 	}
 
 	void FixedUpdate () {
