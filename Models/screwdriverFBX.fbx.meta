@@ -1,56 +1,54 @@
 fileFormatVersion: 2
-guid: ba61f3e0206854ceda15585ed575772b
-timeCreated: 1437279298
+guid: 8e308f96b47714f4ea06e568a98943e2
+timeCreated: 1437279729
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: left
-    100002: pCube3
-    100004: pCube4
-    100006: pCylinder1
-    100008: pCylinder10
-    100010: pCylinder13
-    100012: pCylinder2
-    100014: pCylinder5
-    100016: pCylinder6
-    100018: pCylinder7
-    100020: pCylinder8
-    100022: pCylinder9
-    100024: //RootNode
-    100026: sunDirection
-    100028: transform1
-    100030: transform2
-    100032: transform3
-    100034: transform4
-    100036: transform5
-    100038: transform6
-    100040: transform7
-    100042: transform8
-    100044: transform9
-    400000: left
-    400002: pCube3
-    400004: pCube4
-    400006: pCylinder1
-    400008: pCylinder10
-    400010: pCylinder13
-    400012: pCylinder2
-    400014: pCylinder5
-    400016: pCylinder6
-    400018: pCylinder7
-    400020: pCylinder8
-    400022: pCylinder9
-    400024: //RootNode
-    400026: sunDirection
-    400028: transform1
-    400030: transform2
-    400032: transform3
-    400034: transform4
-    400036: transform5
-    400038: transform6
-    400040: transform7
-    400042: transform8
-    400044: transform9
+    100000: pCube3
+    100002: pCube4
+    100004: pCylinder1
+    100006: pCylinder10
+    100008: pCylinder13
+    100010: pCylinder2
+    100012: pCylinder5
+    100014: pCylinder6
+    100016: pCylinder7
+    100018: pCylinder8
+    100020: pCylinder9
+    100022: //RootNode
+    100024: sunDirection
+    100026: transform1
+    100028: transform2
+    100030: transform3
+    100032: transform4
+    100034: transform5
+    100036: transform6
+    100038: transform7
+    100040: transform8
+    100042: transform9
+    400000: pCube3
+    400002: pCube4
+    400004: pCylinder1
+    400006: pCylinder10
+    400008: pCylinder13
+    400010: pCylinder2
+    400012: pCylinder5
+    400014: pCylinder6
+    400016: pCylinder7
+    400018: pCylinder8
+    400020: pCylinder9
+    400022: //RootNode
+    400024: sunDirection
+    400026: transform1
+    400028: transform2
+    400030: transform3
+    400032: transform4
+    400034: transform5
+    400036: transform6
+    400038: transform7
+    400040: transform8
+    400042: transform9
     2300000: pCylinder10
     2300002: pCylinder13
     3300000: pCylinder10
