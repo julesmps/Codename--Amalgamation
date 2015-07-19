@@ -6,8 +6,22 @@ public class EnemyAI : MonoBehaviour {
 
 	GameObject player;
 	protected float speed { get; set; }
-	public float outerRange = 10.0f;	//AKA Visibility
-	public float attackRange = 0.0f;		//How close they need to get to you
+	protected float outerRange { get; set; }	//AKA Visibility
+	protected float attackRange { get; set; }	//How close they need to get to you
+	protected bool rangedAttack { get; set; }
+
+	public EnemyAI (float movement, float outer) {
+		speed = movement;
+		outerRange = outer;
+		attackRange = 0.0f;
+		rangedAttack = false;
+	}
+	public EnemyAI (float movement, float outer, float inner, bool ranged) {
+		speed = movement;
+		outerRange = outer;
+		attackRange = inner;
+		rangedAttack = ranged;
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -19,6 +33,9 @@ public class EnemyAI : MonoBehaviour {
 		if (inRange ()) {
 			rotate ();
 			move ();
+			if (rangedAttack) {
+
+			}
 		}
 		if (transform.position.y <= -100) {
 			Destroy(gameObject);
