@@ -5,9 +5,10 @@ public class CameraScript : MonoBehaviour {
 
 	// Changed to public
 	public const float distance = 10.0f;
-	public GameObject player;
+	GameObject player;
 
 	void Start () {
+		player = GameObject.FindWithTag ("Player");
 		transform.position = new Vector3 (player.transform.position.x, player.transform.position.y, player.transform.position.z - distance);
 		transform.Rotate(new Vector3(5.0f, 0.0f, 0.0f));
 	}
