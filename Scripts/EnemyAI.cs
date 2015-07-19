@@ -1,16 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyCubeAI : MonoBehaviour {
+public class EnemyAI : MonoBehaviour {
 	// This SHOULD be some sample AI. Maybe. If I got it working ;)
 
-	public GameObject player;
-	public float speed = 1.0f;
-	public float range = 10.0f;
+	GameObject player;
+	protected float speed { get; set; }
+	public float outerRange = 10.0f;	//AKA Visibility
+	public float attackRange = 0.0f;		//How close they need to get to you
 
 	// Use this for initialization
 	void Start () {
-
+		player = GameObject.FindWithTag ("Player");
 	}
 	
 	// Update is called once per frame
@@ -18,6 +19,9 @@ public class EnemyCubeAI : MonoBehaviour {
 		if (inRange ()) {
 			rotate ();
 			move ();
+		}
+		if (transform.position.y <= -100) {
+			Destroy(gameObject);
 		}
 	}
 
@@ -30,7 +34,8 @@ public class EnemyCubeAI : MonoBehaviour {
 	}
 
 	bool inRange () {
-		if (Vector3.Distance (player.transform.position, transform.position) <= range) {
+		float distance = Vector3.Distance (player.transform.position, transform.position);
+		if (distance <= outerRange && distance >= attackRange) {
 			return true;
 		} else {
 			return false;
