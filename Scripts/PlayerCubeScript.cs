@@ -23,12 +23,15 @@ public class PlayerCubeScript : MonoBehaviour {
 	int jumps = 0;
 	bool canDoubleJump = false;
 
+	// On collision with a gameObject (the ground) jump is reset
 	void OnCollisionEnter (Collision collision){
 		if (collision.gameObject) {
 			jumps = 0;
 		}
 	}
 
+	// If the player is not touching the ground when they jump they will
+	// only be able to single jump
 	void OnCollisionExit (Collision collision){
 		if (collision.gameObject) {
 			jumps = 1;
