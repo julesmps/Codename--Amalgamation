@@ -3,8 +3,9 @@ using System.Collections;
 
 public class CameraScript : MonoBehaviour {
 
-	const float distance = 10.0f;
-	float height = distance * 0.2f;
+	// Changed to public
+	public const float distance = 10.0f;
+	public float height = distance * 0.8f;
 
 	public GameObject player;
 
