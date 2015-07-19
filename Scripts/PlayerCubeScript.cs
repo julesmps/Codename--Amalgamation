@@ -6,6 +6,9 @@ public class PlayerCubeScript : MonoBehaviour {
 	// Gets rigidbody to apply forces
 	public Rigidbody player;
 
+	// For jumping, needs to be fixed
+	public GameObject ground;
+
 	// Base speed for the player
 	public float speed = 100.0f;
 
@@ -19,11 +22,22 @@ public class PlayerCubeScript : MonoBehaviour {
 	
 	}
 
+	// Jump mechanic resets once you hit the ground
+	int jumps = 0;
+
+	void OnCollisionEnter (Collision collision){
+		if(collision.gameObject){
+			jumps = 0;
+		}
+	}
+
 	void FixedUpdate () {
 
 		// If jump key than jump
-		if (Input.GetKey ("space"))
-			player.velocity = new Vector2(0, jumpPower);
+		if (Input.GetKeyDown ("space") && jumps < 3) {
+			player.velocity = new Vector2 (0, jumpPower);
+			jumps++;
+		}
 
 		// Sets translations on the ground
 		float translation_h = Input.GetAxis ("Horizontal") * speed;
