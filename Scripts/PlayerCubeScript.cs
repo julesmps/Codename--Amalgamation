@@ -19,9 +19,8 @@ public class PlayerCubeScript : MonoBehaviour {
 	
 	}
 
-	// Jump mechanic resets once you hit the ground
+	// Tracks player's jumps
 	int jumps = 0;
-	bool canDoubleJump = false;
 
 	// On collision with a gameObject (the ground) jump is reset
 	void OnCollisionEnter (Collision collision){
