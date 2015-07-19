@@ -24,6 +24,6 @@ public class CameraScript : MonoBehaviour {
 	}
 
 	void moveCamera () {
-		transform.position = new Vector3 (player.transform.position.x, player.transform.position.y + height, transform.position.z);
+		transform.position = new Vector3 (player.transform.position.x, (player.transform.position.y + height)/3, transform.position.z);
 	}
 }
