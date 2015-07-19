@@ -28,13 +28,17 @@ public class PlayerCubeScript : MonoBehaviour {
 		}
 	}
 
-	void FixedUpdate () {
+	void Update () {
 
 		// If jump key than jump
-		if (Input.GetKeyDown ("space") && jumps < 3) {
+		if (Input.GetKeyDown ("space") && jumps < 2) {
 			player.velocity = new Vector2 (0, jumpPower);
 			jumps++;
 		}
+
+	}
+
+	void FixedUpdate () {
 
 		// Sets translations on the ground
 		float translation_h = Input.GetAxis ("Horizontal") * speed;
