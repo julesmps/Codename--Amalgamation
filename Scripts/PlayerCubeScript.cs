@@ -14,8 +14,13 @@ public class PlayerCubeScript : MonoBehaviour {
 	
 	void Start () {
 
-		// Get player rigidbody component
+		// Get player rigidbody component and prevent rotation
 		player = GetComponent<Rigidbody> ();
+		player.freezeRotation = true;
+
+		Debug.Log (player.transform.position.x);
+		Debug.Log (player.transform.position.y);
+		Debug.Log (player.transform.position.z);
 	
 	}
 
@@ -39,10 +44,38 @@ public class PlayerCubeScript : MonoBehaviour {
 	
 	void Update () {
 
+		// Finds current posistions
+		float currentX = player.transform.position.x;
+		float currentY = player.transform.position.y;
+		float currentZ = player.transform.position.z;
+
+		float endZ; 
+
+		// current pos as a Vector3
+		Vector3 current = new Vector3 (currentX, currentY, currentZ);
+
+
+		Vector3 zPlus = new Vector3 (currentX, currentY, currentZ + 3.0f);
+		Vector3 zMinus = new Vector3 (currentX, currentY, currentZ - 3.0f);
+		float zTransSpeed = 1;
+		zTransSpeed *= Time.deltaTime * speed;
+
 		// If jump key than jump
 		if (Input.GetKeyDown ("space") && jumps < 2) {
-			player.velocity = new Vector2 (0, jumpPower);
+			player.velocity = new Vector2(0.0f, jumpPower);
 			jumps++;
+		}
+
+		// Moves player up on screen
+		if (Input.GetKeyDown ("up") && jumps == 0 && player.transform.position.z < 3) {
+			if (!Physics.Linecast (current, zPlus)) {
+				player.transform.position = new Vector3 (currentX, currentY, currentZ + 3);
+			}
+		}
+		if (Input.GetKeyDown ("down") && jumps == 0 && player.transform.position.z > -3) {
+			if (!Physics.Linecast (current, zMinus)) {
+				player.transform.position = new Vector3 (currentX, currentY, currentZ - 3);
+			}
 		}
 	}
 
@@ -51,11 +84,9 @@ public class PlayerCubeScript : MonoBehaviour {
 		// Sets translations on the ground
 		float translation_h = Input.GetAxis ("Horizontal") * speed;
 		translation_h *= Time.deltaTime;
-		float translation_v = Input.GetAxis ("Vertical") * speed;
-		translation_v *= Time.deltaTime;
 
 		// Adds translation as a force to the player
-		Vector3 translate = new Vector3 (translation_h, 0.0f, translation_v);
+		Vector3 translate = new Vector3 (translation_h, 0.0f, 0.0f);
 		transform.Translate (translate);
 	}
 }
