@@ -76,29 +76,15 @@ public class PlayerCubeScript : MonoBehaviour {
 				player.transform.position = new Vector3 (currentX, currentY, currentZ - 3);
 			}
 		}
-
-		// Handles left movement and left sprint
-		if (Input.GetKey ("left")) {
-			// Check if sprinting
-			if (Input.GetKey ("left shift")) {
-				Vector3 translate = new Vector3 (-0.3f, 0.0f, 0.0f);
-				transform.Translate (translate);
-			}
-			// Not Sprinting
-			Vector3 translate2 = new Vector3 (-0.2f, 0.0f, 0.0f);
-			transform.Translate (translate2);
+		
+		// Handles all lateral movement
+		float xVector = speed;
+		if (Input.GetKey ("left shift")){
+			xVector *= sprintBonus;
 		}
-
-		// Handles right movement and right sprint
-		if (Input.GetKey ("right")) {
-			// Check if sprinting
-			if (Input.GetKey ("left shift")) {
-				Vector3 translate = new Vector3 (0.3f, 0.0f, 0.0f);
-				transform.Translate (translate);
-			}
-			// Not Sprinting
-			Vector3 translate2 = new Vector3 (0.2f, 0.0f, 0.0f);
-			transform.Translate (translate2);
+		if (Input.GetKey ("left")){
+			xVector *= -1;
 		}
+		transform.Translate (new Vector3 (xVector, 0.0f, 0.0f));
 	}
 }
