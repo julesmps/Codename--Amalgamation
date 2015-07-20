@@ -6,16 +6,27 @@ public class PlayerCubeScript : MonoBehaviour {
 	// Base speed for the player
 	public float speed = 100.0f;
 
-	//Base jump power for the player
+	// Base jump power for the player
 	public float jumpPower = 5.0f;
+
+	// Double tap for sprint
+	public float doubleTap = 0.2f;
+	private float lastTapTime = 0.0f;
 
 	// Gets rigidbody to apply forces
 	private Rigidbody player;
 	
 	void Start () {
 
-		// Get player rigidbody component
+		// Get player rigidbody component and prevent rotation
 		player = GetComponent<Rigidbody> ();
+		player.freezeRotation = true;
+
+		lastTapTime = 0.0f;
+
+		Debug.Log (player.transform.position.x);
+		Debug.Log (player.transform.position.y);
+		Debug.Log (player.transform.position.z);
 	
 	}
 
@@ -39,23 +50,63 @@ public class PlayerCubeScript : MonoBehaviour {
 	
 	void Update () {
 
+		// Finds current posistions
+		float currentX = player.transform.position.x;
+		float currentY = player.transform.position.y;
+		float currentZ = player.transform.position.z;
+
+		// current pos as a Vector3
+		Vector3 current = new Vector3 (currentX, currentY, currentZ);
+
+
+		Vector3 zPlus = new Vector3 (currentX, currentY, currentZ + 3.0f);
+		Vector3 zMinus = new Vector3 (currentX, currentY, currentZ - 3.0f);
+
 		// If jump key than jump
 		if (Input.GetKeyDown ("space") && jumps < 2) {
-			player.velocity = new Vector2 (0, jumpPower);
+			player.velocity = new Vector2(0.0f, jumpPower);
 			jumps++;
+		}
+
+		// Moves player up on screen
+		if (Input.GetKeyDown ("up") && jumps == 0 && player.transform.position.z < 3) {
+			if (!Physics.Linecast (current, zPlus)) {
+				player.transform.position = new Vector3 (currentX, currentY, currentZ + 3);
+			}
+		}
+
+		// Moves player down on screen
+		if (Input.GetKeyDown ("down") && jumps == 0 && player.transform.position.z > -3) {
+			if (!Physics.Linecast (current, zMinus)) {
+				player.transform.position = new Vector3 (currentX, currentY, currentZ - 3);
+			}
+		}
+
+		// Handles left movement and left sprint
+		if (Input.GetKey ("left")) {
+			// Check if sprinting
+			if (Input.GetKey ("left shift")) {
+				Vector3 translate = new Vector3 (-0.3f, 0.0f, 0.0f);
+				transform.Translate (translate);
+			}
+			// Not Sprinting
+			Vector3 translate2 = new Vector3 (-0.2f, 0.0f, 0.0f);
+			transform.Translate (translate2);
+		}
+
+		// Handles right movement and right sprint
+		if (Input.GetKey ("right")) {
+			// Check if sprinting
+			if (Input.GetKey ("left shift")) {
+				Vector3 translate = new Vector3 (0.3f, 0.0f, 0.0f);
+				transform.Translate (translate);
+			}
+			// Not Sprinting
+			Vector3 translate2 = new Vector3 (0.2f, 0.0f, 0.0f);
+			transform.Translate (translate2);
 		}
 	}
 
 	void FixedUpdate () {
-
-		// Sets translations on the ground
-		float translation_h = Input.GetAxis ("Horizontal") * speed;
-		translation_h *= Time.deltaTime;
-		float translation_v = Input.GetAxis ("Vertical") * speed;
-		translation_v *= Time.deltaTime;
-
-		// Adds translation as a force to the player
-		Vector3 translate = new Vector3 (translation_h, 0.0f, translation_v);
-		transform.Translate (translate);
 	}
 }
