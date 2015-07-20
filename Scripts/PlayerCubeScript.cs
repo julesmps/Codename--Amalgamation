@@ -6,12 +6,11 @@ public class PlayerCubeScript : MonoBehaviour {
 	// Base speed for the player
 	public float speed = 100.0f;
 
+	// Base Percentage speed for sprint
+	public float sprintBonus = 1.5f;
+
 	// Base jump power for the player
 	public float jumpPower = 5.0f;
-
-	// Double tap for sprint
-	public float doubleTap = 0.2f;
-	private float lastTapTime = 0.0f;
 
 	// Gets rigidbody to apply forces
 	private Rigidbody player;
@@ -22,11 +21,7 @@ public class PlayerCubeScript : MonoBehaviour {
 		player = GetComponent<Rigidbody> ();
 		player.freezeRotation = true;
 
-		lastTapTime = 0.0f;
-
-		Debug.Log (player.transform.position.x);
-		Debug.Log (player.transform.position.y);
-		Debug.Log (player.transform.position.z);
+		Debug.Log (player.transform.position.x + ", " + player.transform.position.y + ", " + player.transform.position.z);
 	
 	}
 
@@ -105,8 +100,5 @@ public class PlayerCubeScript : MonoBehaviour {
 			Vector3 translate2 = new Vector3 (0.2f, 0.0f, 0.0f);
 			transform.Translate (translate2);
 		}
-	}
-
-	void FixedUpdate () {
 	}
 }
