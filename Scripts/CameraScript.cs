@@ -14,7 +14,7 @@ public class CameraScript : MonoBehaviour {
 		player = GameObject.FindWithTag ("Player");
 
 		// Sets posistion to that of the player with distance and a rotation to look at the player
-		transform.position = new Vector3 (player.transform.position.x, player.transform.position.y, player.transform.position.z - distance);
+		transform.position = new Vector3 (player.transform.position.x, player.transform.position.y + 2.0f, player.transform.position.z - distance);
 		transform.Rotate(new Vector3(5.0f, 0.0f, 0.0f));
 	}
 
@@ -24,6 +24,6 @@ public class CameraScript : MonoBehaviour {
 		float height = player.transform.position.y * 0.2f;
 
 		// Handles follow cam of player
-		transform.position = new Vector3 (player.transform.position.x, (player.transform.position.y + (height / 2)), transform.position.z);
+		transform.position = new Vector3 (player.transform.position.x, (player.transform.position.y + 2.0f + (height / 2)), transform.position.z);
 	}
 }
