@@ -69,7 +69,11 @@ public class ItemsDatabase : MonoBehaviour {
 			id = 4,
 			name = "weapon",
 			description = "",
-			maxStack = 1
+			maxStack = 1,
+
+			isWeapon = true,
+			damage = 1,
+			durability = 100
 		};
 
 		List<Item> db = new List<Item> ();
