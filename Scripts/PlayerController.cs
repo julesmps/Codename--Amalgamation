@@ -4,8 +4,8 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 	
 	// Base speed for the player
-	public float speed = 100.0f;
-	
+	public float speed = 0.2f;
+
 	// Base Percentage speed for sprint
 	public float sprintBonus = 1.5f;
 	
@@ -76,29 +76,18 @@ public class PlayerController : MonoBehaviour {
 				player.transform.position = new Vector3 (currentX, currentY, currentZ - 3);
 			}
 		}
-		
-		// Handles left movement and left sprint
-		if (Input.GetKey ("left")) {
-			// Check if sprinting
-			if (Input.GetKey ("left shift")) {
-				Vector3 translate = new Vector3 (-0.3f, 0.0f, 0.0f);
-				transform.Translate (translate);
-			}
-			// Not Sprinting
-			Vector3 translate2 = new Vector3 (-0.2f, 0.0f, 0.0f);
-			transform.Translate (translate2);
-		}
-		
-		// Handles right movement and right sprint
+
+		// Handles all lateral movement
+		float xVector = 0.0f;
 		if (Input.GetKey ("right")) {
-			// Check if sprinting
-			if (Input.GetKey ("left shift")) {
-				Vector3 translate = new Vector3 (0.3f, 0.0f, 0.0f);
-				transform.Translate (translate);
-			}
-			// Not Sprinting
-			Vector3 translate2 = new Vector3 (0.2f, 0.0f, 0.0f);
-			transform.Translate (translate2);
+			xVector = speed;
 		}
+		if (Input.GetKey ("left")) {
+			xVector = -speed;
+		}
+		if (Input.GetKey ("left shift")) {
+			xVector *= sprintBonus;
+		}
+		transform.Translate (new Vector3 (xVector, 0.0f, 0.0f));
 	}
 }
