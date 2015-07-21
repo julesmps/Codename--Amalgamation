@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerCubeScript : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
 	
 	// Base speed for the player
 	public float speed = 100.0f;
