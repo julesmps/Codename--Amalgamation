@@ -8,6 +8,8 @@ using UnityEngine;
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
+
+
 	
 	// Base speed for the player
 	[Range (0.01f, Mathf.Infinity)]
@@ -29,49 +31,50 @@ public class PlayerController : MonoBehaviour {
 
 	// Determines whether the player is touching ground
 	private bool grounded;
-	
+
 	// Gets rigidbody to apply forces
 	private Rigidbody player;
+
+	// Tracks player's jumps
+	private int jumps = 0;
 	
+
+
+	// Called when script is intiated
 	void Start () {
 		
 		// Get player rigidbody component and prevent rotation
 		player = GetComponent<Rigidbody> ();
 		player.freezeRotation = true;
-
 	}
 
-	// Tracks player's jumps
-	int jumps = 0;
-	
+
+
 	// On collision with a gameObject (the ground) jump is reset
 	void OnCollisionEnter (Collision collision){
 		if (collision.gameObject) {
-			grounded = true;
 			jumps = 0;
 		}
 	}
-	
+
+
+
 	// If the player is not touching the ground when they jump they will
 	// only be able to single jump
 	void OnCollisionExit (Collision collision){
 		if (collision.gameObject) {
-			grounded = false;
+			jumps = 1;
 		}
 	}
-	
+
+
+	// Called once per frame
 	void Update () {
 
 		// If jump key then jump
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			// Jump penalty for being mid air
-			int jumpPen;
-			if (grounded){
-				jumpPen = 0;
-			} else {
-				jumpPen = 1;
-			}
-			if (jumps <= extraJumps - jumpPen + 1) {
+			if (jumps < 2){
 				player.velocity = new Vector2(0.0f, Input.GetAxis ("Jump") * jumpPower);
 				jumps++;
 			}
