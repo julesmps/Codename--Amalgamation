@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/** This script makes use of an additional Input from the Input Manager (Edit -> Project Settings -> Input)
+ *  Name			: Sprint
+ *  Positive button	: left shift
+ *  Gravity			: 10
+ *  Sensitivity		: 50
+ */
+using UnityEngine;
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
@@ -6,8 +12,8 @@ public class PlayerController : MonoBehaviour {
 	// Base speed for the player
 	public float speed = 0.2f;
 
-	// Base Percentage speed for sprint
-	public float sprintBonus = 1.5f;
+	// Percentage increase in speed due to sprint (100% [1.0f] = twice as fast)
+	public float sprintBonus = 0.5f;
 	
 	// Base jump power for the player
 	public float jumpPower = 5.0f;
@@ -49,8 +55,8 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 
 		// If jump key than jump
-		if (Input.GetKeyDown ("space") && jumps < 2) {
-			player.velocity = new Vector2(0.0f, jumpPower);
+		if (Input.GetAxis ("Jump") > 0 && jumps < 2) {
+			player.velocity = new Vector2(0.0f, Input.GetAxis ("Jump") * jumpPower);
 			jumps++;
 		}
 
@@ -75,16 +81,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		// Handles all lateral movement
-		float xVector = 0.0f;
-		if (Input.GetKey ("right")) {
-			xVector = speed;
-		}
-		if (Input.GetKey ("left")) {
-			xVector = -speed;
-		}
-		if (Input.GetKey ("left shift")) {
-			xVector *= sprintBonus;
-		}
-		transform.Translate (new Vector3 (xVector, 0.0f, 0.0f));
+		float sprint = Input.GetAxis ("Sprint") * sprintBonus + 1;
+		transform.Translate (new Vector3 (Input.GetAxis ("Horizontal") * speed * sprint, 0.0f, 0.0f));
 	}
 }
