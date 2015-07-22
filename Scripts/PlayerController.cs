@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/** This script makes use of an additional Input from the Input Manager (Edit -> Project Settings -> Input)
+ *  Name			: Sprint
+ *  Positive button	: left shift
+ *  Gravity			: 10
+ *  Sensitivity		: 50
+ */
+using UnityEngine;
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
@@ -6,11 +12,14 @@ public class PlayerController : MonoBehaviour {
 	// Base speed for the player
 	public float speed = 0.2f;
 
-	// Base Percentage speed for sprint
-	public float sprintBonus = 1.5f;
+	// Percentage increase in speed due to sprint (100% [1.0f] = twice as fast)
+	public float sprintBonus = 0.5f;
 	
 	// Base jump power for the player
 	public float jumpPower = 5.0f;
+
+	// Value which determines the amount mvoed left and right
+	public float zVal = 3.0f;
 	
 	// Gets rigidbody to apply forces
 	private Rigidbody player;
@@ -44,50 +53,35 @@ public class PlayerController : MonoBehaviour {
 	}
 	
 	void Update () {
-		
-		// Finds current posistions
-		float currentX = player.transform.position.x;
-		float currentY = player.transform.position.y;
-		float currentZ = player.transform.position.z;
-		
-		// current pos as a Vector3
-		Vector3 current = new Vector3 (currentX, currentY, currentZ);
-		
-		
-		Vector3 zPlus = new Vector3 (currentX, currentY, currentZ + 3.0f);
-		Vector3 zMinus = new Vector3 (currentX, currentY, currentZ - 3.0f);
-		
+
 		// If jump key than jump
-		if (Input.GetKeyDown ("space") && jumps < 2) {
-			player.velocity = new Vector2(0.0f, jumpPower);
+		if (Input.GetAxis ("Jump") > 0 && jumps < 2) {
+			player.velocity = new Vector2(0.0f, Input.GetAxis ("Jump") * jumpPower);
 			jumps++;
 		}
+
+		// current pos as a Vector3
+		Vector3 current = player.transform.position;
 		
+		Vector3 zPlus = current + new Vector3 (0.0f, 0.0f, zVal);
+		Vector3 zMinus = current - new Vector3 (0.0f, 0.0f, zVal);
+				
 		// Moves player up on screen
-		if (Input.GetKeyDown ("up") && jumps == 0 && player.transform.position.z < 3) {
+		if (Input.GetKeyDown ("up") && jumps == 0 && current.z < 3) {
 			if (!Physics.Linecast (current, zPlus)) {
-				player.transform.position = new Vector3 (currentX, currentY, currentZ + 3);
+				player.transform.position = zPlus;
 			}
 		}
 		
 		// Moves player down on screen
-		if (Input.GetKeyDown ("down") && jumps == 0 && player.transform.position.z > -3) {
+		if (Input.GetKeyDown ("down") && jumps == 0 && current.z > -3) {
 			if (!Physics.Linecast (current, zMinus)) {
-				player.transform.position = new Vector3 (currentX, currentY, currentZ - 3);
+				player.transform.position = zMinus;
 			}
 		}
 
 		// Handles all lateral movement
-		float xVector = 0.0f;
-		if (Input.GetKey ("right")) {
-			xVector = speed;
-		}
-		if (Input.GetKey ("left")) {
-			xVector = -speed;
-		}
-		if (Input.GetKey ("left shift")) {
-			xVector *= sprintBonus;
-		}
-		transform.Translate (new Vector3 (xVector, 0.0f, 0.0f));
+		float sprint = Input.GetAxis ("Sprint") * sprintBonus + 1;
+		transform.Translate (new Vector3 (Input.GetAxis ("Horizontal") * speed * sprint, 0.0f, 0.0f));
 	}
 }
