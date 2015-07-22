@@ -2,6 +2,11 @@
 using System.Collections;
 
 public class Spawnpoint : MonoBehaviour {
+	
+/*
+to set up the spawn point attach this script to an empty game object and set it
+were you want your spawn to be.
+*/
 
 	public GameObject Player;
 

@@ -3,6 +3,11 @@ using System.Collections;
 
 public class Myfalloff : MonoBehaviour {
 
+/*
+to setup the falloff you need to attach this script to a cube that should spread throughout
+the entire lvl under all of the playable platforms. the cube needs to have its trigger 
+function on so the player can go through it, and Rigidbody with is kinematic on and gravity off. 
+*/
 	public GameObject Player;
 	public GameObject Spawn;
 

@@ -2,6 +2,12 @@
 using System.Collections;
 
 public class Cutoff : MonoBehaviour {
+	
+/*
+to set up the cutoff set the script to an empty game object and set it
+at the points where you dont wnat your player to go pass. to set this 
+as an altitude cutoff just change the x axis in the if statement for a y.
+*/
 
 	public GameObject Player;
 		
