@@ -67,6 +67,36 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	// Needed for z translation
+	bool isTranslatingZ = false;
+
+	// Coroutine needed to excucute Z movements +
+	private IEnumerator zTranslationPositive () {
+
+		// Loop moves players based on speed
+		for (float f = 0f; f < 3; f += speed) {
+			player.transform.position += new Vector3 (0.0f, 0.0f, speed);
+			// Cannot move along Z until done moving
+			isTranslatingZ = true;
+			yield return null;
+		}
+		// Once finished movement is allowed
+		isTranslatingZ = false;
+	}
+
+	// Coroutine needed to excucute Z movements -
+	private IEnumerator zTranslationNegative () {
+
+		// Loop moves players based on speed
+		for (float f = 3f; f > 0; f -= speed) {
+			player.transform.position -= new Vector3 (0.0f, 0.0f, speed);
+			// Cannot move along Z until done moving
+			isTranslatingZ = true;
+			yield return null;
+		}
+		// Once finished movement is allowed
+		isTranslatingZ = false;
+	}
 
 	// Called once per frame
 	void Update () {
@@ -80,24 +110,14 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 
-		// current pos as a Vector3
-		Vector3 current = player.transform.position;
-		
-		Vector3 zPlus = current + new Vector3 (0.0f, 0.0f, zVal);
-		Vector3 zMinus = current - new Vector3 (0.0f, 0.0f, zVal);
-				
 		// Moves player up on screen
-		if (Input.GetKeyDown ("up") && jumps == 0 && current.z < zVal) {
-			if (!Physics.Linecast (current, zPlus)) {
-				player.transform.position = zPlus;
-			}
+		if (Input.GetKeyDown ("up") && isTranslatingZ == false && player.transform.position.z < 2) {
+			StartCoroutine("zTranslationPositive");
 		}
 		
 		// Moves player down on screen
-		if (Input.GetKeyDown ("down") && jumps == 0 && current.z > -zVal) {
-			if (!Physics.Linecast (current, zMinus)) {
-				player.transform.position = zMinus;
-			}
+		if (Input.GetKeyDown ("down") && isTranslatingZ == false && player.transform.position.z > -2) {
+			StartCoroutine("zTranslationNegative");
 		}
 
 		// Handles all lateral movement
