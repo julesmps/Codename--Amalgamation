@@ -103,7 +103,6 @@ public class PlayerController : MonoBehaviour {
 
 		// If jump key then jump
 		if (Input.GetKeyDown (KeyCode.Space)) {
-			// Jump penalty for being mid air
 			if (jumps < 2){
 				player.velocity = new Vector2(0.0f, Input.GetAxis ("Jump") * jumpPower);
 				jumps++;
