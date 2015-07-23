@@ -9,14 +9,14 @@ public class PlayerController : MonoBehaviour {
 
 	// Base speed for the player
 	[Range (0.01f, Mathf.Infinity)]
-	public float speed = 0.2f;
+	public float speed = 1.0f;
 
 	// Percentage increase in speed due to sprint (100% [1.0f] = twice as fast)
 	public float sprintBonus = 0.5f;
 	
 	// Base jump power for the player
 	[Range (0.01f, Mathf.Infinity)]
-	public float jumpPower = 5.0f;
+	public float jumpPower = 10.0f;
 
 	// Value which determines the amount mvoed left and right
 	public float zVal = 3.0f;
@@ -24,9 +24,6 @@ public class PlayerController : MonoBehaviour {
 	// Additional Jumps
 	[Range (0, Mathf.Infinity)]
 	public int extraJumps = 1;
-
-	// Determines whether the player is touching ground
-	private bool grounded;
 
 	// Gets rigidbody to apply forces
 	private Rigidbody player;
@@ -53,7 +50,6 @@ public class PlayerController : MonoBehaviour {
 	// On collision with a gameObject (the ground) jump is reset
 	void OnCollisionEnter (Collision collision){
 		if (collision.gameObject) {
-			grounded = true;
 			jumps = 0;
 			player.drag = 5;
 		}
@@ -65,7 +61,6 @@ public class PlayerController : MonoBehaviour {
 	// only be able to single jump
 	void OnCollisionExit (Collision collision){
 		if (collision.gameObject.tag == "Platform") {
-			grounded = false;
 			jumps = 1;
 			player.drag = 0;
 		}
@@ -107,8 +102,7 @@ public class PlayerController : MonoBehaviour {
 
 		// If jump key then jump
 		if (Input.GetKeyDown (jumpKey)) {
-			if (jumps < 2){
-				//player.velocity = new Vector2(0.0f, Input.GetAxis ("Jump") * jumpPower);
+			if (jumps < 1 + extraJumps){
 				player.AddForce (new Vector3 (0.0f, Input.GetAxis ("Jump") * jumpPower, 0.0f), ForceMode.Impulse);
 				jumps++;
 			}
@@ -127,7 +121,7 @@ public class PlayerController : MonoBehaviour {
 		// Handles all lateral movement
 		float sprint;
 		if (Input.GetKey (sprintKey)) {
-			if (grounded) {
+			if (jumps == 0) {
 				sprint = sprintBonus + 1;
 			} else {
 				sprint = 1;
@@ -135,8 +129,7 @@ public class PlayerController : MonoBehaviour {
 		} else {
 			sprint = 1;
 		}
-		//transform.Translate (new Vector3 (Input.GetAxis ("Horizontal") * speed * sprint, 0.0f, 0.0f));
-		if (grounded) {
+		if (jumps == 0) {
 			player.AddForce (new Vector3 (Input.GetAxis ("Horizontal") * speed * sprint, 0.0f, 0.0f), ForceMode.VelocityChange);
 		}
 	}
