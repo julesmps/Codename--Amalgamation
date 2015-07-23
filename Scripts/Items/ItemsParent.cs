@@ -9,12 +9,12 @@ public class Item {
 	 * bool default = false
 	 */
 
-	//public Sprite sprite		{ get; set; }
-	//public GameObject mesh 		{ get; set; }
-
 	public int id 				{ get; set; }	//default = null DO NOT DEFAULT
 	public string name 			{ get; set; }	//default = no name DO NOT DEFAULT
 	public string description 	{ get; set; }	//default = no description DO NOT DEFAULT
+
+	public Sprite sprite		{ get; set; }
+	public GameObject mesh 		{ get; set; }
 
 	public int maxStack 		{ get; set; }	//default = null DO NOT DEFAULT, set to a minimum of 1
 
@@ -29,6 +29,12 @@ public class Item {
 	public int size 			{ get; set; }	//default = no size
 
 	public bool isQuest 		{ get; set; }	//default = not a quest item
+
+	Item() {
+		if (sprite = null) {
+			//default sprite
+		}
+	}
 
 	void eat() {
 		if (isFood) {
