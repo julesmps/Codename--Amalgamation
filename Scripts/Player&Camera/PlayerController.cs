@@ -6,38 +6,20 @@ using UnityEngine;
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
-
-	// Base speed for the player
-	[Range (0.01f, Mathf.Infinity)]
-	public float speed = 1.0f;
-
-	// Percentage increase in speed due to sprint (100% [1.0f] = twice as fast)
-	public float sprintBonus = 0.5f;
 	
-	// Base jump power for the player
 	[Range (0.01f, Mathf.Infinity)]
-	public float jumpPower = 10.0f;
-
-	// Value which determines the amount mvoed left and right
-	public float zVal = 3.0f;
-
-	// Additional Jumps
+	public float speed = 1.0f;			// Base speed for the player
+	public float sprintBonus = 0.5f;	// Percentage increase in speed due to sprint (100% [1.0f] = twice as fast)
+	[Range (0.01f, Mathf.Infinity)]
+	public float jumpPower = 10.0f;		// Base jump power for the player
+	public float zVal = 3.0f;			// Value which determines the amount mvoed left and right
 	[Range (0, Mathf.Infinity)]
-	public int extraJumps = 1;
-
-	// Gets rigidbody to apply forces
-	private Rigidbody player;
-
-	// Tracks player's jumps
-	private int jumps = 0;
-
-	// Sprint Key
+	public int extraJumps = 1;			// Additional Jumps
+	private Rigidbody player;			// Gets rigidbody to apply forces
+	private int jumps = 0;				// Tracks player's jumps
 	public KeyCode sprintKey = KeyCode.LeftShift;
-
-	// Jump Key
 	public KeyCode jumpKey = KeyCode.Space;
-
-	// Called when script is intiated
+	
 	void Start () {
 		
 		// Get player rigidbody component and prevent rotation
@@ -45,24 +27,20 @@ public class PlayerController : MonoBehaviour {
 		player.freezeRotation = true;
 	}
 
-
-
 	// On collision with a gameObject (the ground) jump is reset
 	void OnCollisionEnter (Collision collision){
 		if (collision.gameObject) {
 			jumps = 0;
-			//player.drag = 5;
+			player.drag = 5;
 		}
 	}
-
-
-
+	
 	// If the player is not touching the ground when they jump they will
 	// only be able to single jump
 	void OnCollisionExit (Collision collision){
 		if (collision.gameObject.tag == "Platform") {
 			jumps = 1;
-			//player.drag = 0;
+			player.drag = 0;
 		}
 	}
 
