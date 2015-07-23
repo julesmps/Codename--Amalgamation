@@ -3,11 +3,8 @@ using System.Collections;
 
 public class CameraScript : MonoBehaviour {
 
-	// Changed to public
-	// Sets distance from player
-	public const float distance = 10.0f;
-
-	GameObject player;
+	public const float distance = 10.0f;	// Sets distance from player
+	GameObject player;						// Sets the player for the camera to follow
 
 	void Start () {
 

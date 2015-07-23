@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour {
 	void OnCollisionEnter (Collision collision){
 		if (collision.gameObject) {
 			jumps = 0;
-			player.drag = 5;
+			//player.drag = 5;
 		}
 	}
 
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour {
 	void OnCollisionExit (Collision collision){
 		if (collision.gameObject.tag == "Platform") {
 			jumps = 1;
-			player.drag = 0;
+			//player.drag = 0;
 		}
 	}
 
@@ -129,8 +129,11 @@ public class PlayerController : MonoBehaviour {
 		} else {
 			sprint = 1;
 		}
+
 		if (jumps == 0) {
 			player.AddForce (new Vector3 (Input.GetAxis ("Horizontal") * speed * sprint, 0.0f, 0.0f), ForceMode.VelocityChange);
+		} else {
+			player.AddForce (new Vector3 (Input.GetAxis ("Horizontal") * (speed / 2), 0.0f, 0.0f), ForceMode.VelocityChange);
 		}
 	}
 }
