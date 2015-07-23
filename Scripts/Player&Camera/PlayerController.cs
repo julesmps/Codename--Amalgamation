@@ -106,11 +106,7 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 
 		// If jump key then jump
-<<<<<<< HEAD:Scripts/PlayerController.cs
 		if (Input.GetKeyDown (jumpKey)) {
-=======
-		if (Input.GetKeyDown (KeyCode.Space)) {
->>>>>>> origin/master:Scripts/Player&Camera/PlayerController.cs
 			if (jumps < 2){
 				//player.velocity = new Vector2(0.0f, Input.GetAxis ("Jump") * jumpPower);
 				player.AddForce (new Vector3 (0.0f, Input.GetAxis ("Jump") * jumpPower, 0.0f), ForceMode.Impulse);
