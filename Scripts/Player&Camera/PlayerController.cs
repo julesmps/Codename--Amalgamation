@@ -73,8 +73,8 @@ public class PlayerController : MonoBehaviour {
 	private IEnumerator zTranslationPositive () {
 
 		// Loop moves players based on speed
-		for (float f = 0f; f < 3; f += speed) {
-			player.transform.position += new Vector3 (0.0f, 0.0f, speed);
+		for (float f = 0f; f < 3; f += 0.2f) {
+			player.transform.position += new Vector3 (0.0f, 0.0f, 0.2f);
 			// Cannot move along Z until done moving
 			isTranslatingZ = true;
 			yield return null;
@@ -87,8 +87,8 @@ public class PlayerController : MonoBehaviour {
 	private IEnumerator zTranslationNegative () {
 
 		// Loop moves players based on speed
-		for (float f = 3f; f > 0; f -= speed) {
-			player.transform.position -= new Vector3 (0.0f, 0.0f, speed);
+		for (float f = 3f; f > 0; f -= 0.2f) {
+			player.transform.position -= new Vector3 (0.0f, 0.0f, 0.2f);
 			// Cannot move along Z until done moving
 			isTranslatingZ = true;
 			yield return null;
