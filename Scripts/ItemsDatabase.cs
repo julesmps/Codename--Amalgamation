@@ -35,7 +35,7 @@ public class ItemsDatabase : MonoBehaviour {
 	 */
 
 	void Awake () {
-
+		/*
 		Item id0 = new Item (){ 
 			id = 0,
 			name = "",
@@ -75,6 +75,7 @@ public class ItemsDatabase : MonoBehaviour {
 			damage = 1,
 			durability = 100
 		};
+		
 
 		List<Item> db = new List<Item> ();
 
@@ -87,5 +88,7 @@ public class ItemsDatabase : MonoBehaviour {
 		foreach (Item i in db) {
 			Debug.Log (i.name);
 		}
+	}
+	*/
 	}
 }
