@@ -1,16 +1,12 @@
-﻿/** This script makes use of an additional Input from the Input Manager (Edit -> Project Settings -> Input)
- *  Name			: Sprint
- *  Positive button	: left shift
- *  Gravity			: 10
- *  Sensitivity		: 50
+/**
+ * This script makes use of a non-standard Tag.
+ * For this script to work properly, a Tag with the name "Platform" is required
  */
 using UnityEngine;
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-
-	
 	// Base speed for the player
 	[Range (0.01f, Mathf.Infinity)]
 	public float speed = 0.2f;
@@ -37,8 +33,12 @@ public class PlayerController : MonoBehaviour {
 
 	// Tracks player's jumps
 	private int jumps = 0;
-	
 
+	// Sprint Key
+	public KeyCode sprintKey = KeyCode.LeftShift;
+
+	// Jump Key
+	public KeyCode jumpKey = KeyCode.Space;
 
 	// Called when script is intiated
 	void Start () {
@@ -53,7 +53,9 @@ public class PlayerController : MonoBehaviour {
 	// On collision with a gameObject (the ground) jump is reset
 	void OnCollisionEnter (Collision collision){
 		if (collision.gameObject) {
+			grounded = true;
 			jumps = 0;
+			player.drag = 5;
 		}
 	}
 
@@ -62,8 +64,10 @@ public class PlayerController : MonoBehaviour {
 	// If the player is not touching the ground when they jump they will
 	// only be able to single jump
 	void OnCollisionExit (Collision collision){
-		if (collision.gameObject) {
+		if (collision.gameObject.tag == "Platform") {
+			grounded = false;
 			jumps = 1;
+			player.drag = 0;
 		}
 	}
 
@@ -72,10 +76,10 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 
 		// If jump key then jump
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			// Jump penalty for being mid air
+		if (Input.GetKeyDown (jumpKey)) {
 			if (jumps < 2){
-				player.velocity = new Vector2(0.0f, Input.GetAxis ("Jump") * jumpPower);
+				//player.velocity = new Vector2(0.0f, Input.GetAxis ("Jump") * jumpPower);
+				player.AddForce (new Vector3 (0.0f, Input.GetAxis ("Jump") * jumpPower, 0.0f), ForceMode.Impulse);
 				jumps++;
 			}
 		}
@@ -101,7 +105,19 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		// Handles all lateral movement
-		float sprint = Input.GetAxis ("Sprint") * sprintBonus + 1;
-		transform.Translate (new Vector3 (Input.GetAxis ("Horizontal") * speed * sprint, 0.0f, 0.0f));
+		float sprint;
+		if (Input.GetKey (sprintKey)) {
+			if (grounded) {
+				sprint = sprintBonus + 1;
+			} else {
+				sprint = 1;
+			}
+		} else {
+			sprint = 1;
+		}
+		//transform.Translate (new Vector3 (Input.GetAxis ("Horizontal") * speed * sprint, 0.0f, 0.0f));
+		if (grounded) {
+			player.AddForce (new Vector3 (Input.GetAxis ("Horizontal") * speed * sprint, 0.0f, 0.0f), ForceMode.VelocityChange);
+		}
 	}
 }
