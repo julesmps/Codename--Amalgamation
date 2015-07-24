@@ -26,6 +26,7 @@ public class PlayerCharacterController : MonoBehaviour {
 		CharacterController controller = GetComponent<CharacterController> ();
 
 		if (controller.isGrounded) {
+			jumps = 0;
 			// Reads the Horizontal Axis (X axis)
 			direction = transform.TransformDirection (new Vector3 (Input.GetAxis ("Horizontal"), 0.0f, 0.0f));
 			direction *= speed;
@@ -34,8 +35,14 @@ public class PlayerCharacterController : MonoBehaviour {
 				direction *= sprintBonus;
 			}
 			// Allows Jumping
-			if (Input.GetKey (jumpKey)) {
+			if (Input.GetKeyDown (jumpKey)) {
 				direction.y = jumpPower;
+			}
+		} else {
+			// Allows Jumping while midair (double, triple.... jump)
+			if (Input.GetKeyDown (jumpKey) && jumps < extraJumps) {
+				direction.y = jumpPower;
+				jumps++;
 			}
 		}
 		direction.y -= gravity * Time.deltaTime;		// Adds gravity
