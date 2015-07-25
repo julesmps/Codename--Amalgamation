@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ItemParent {
+public interface ItemParent {
 
 	private ItemType _itemType;
 

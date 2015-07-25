@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class _item1 : ItemParent {
+public class _item1 : _basicClass {
 	
 	private ItemType _itemType = ItemType.basic;
 	
