@@ -1,18 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Item {
-	public class ItemParent {
+public class ItemParent {
 
-		private ItemType _itemType;
+	private ItemType _itemType;
 
-		private string _itemName;
-		private string _itemDescription;
-		private int _itemNumber;
+	private string _itemName;
+	private string _itemDescription;
+	private int _itemNumber;
 
-		private GameObject _itemGameObject;
-		private Sprite _itemSprite;
-
-
-	}
+	//private GameObject _itemGameObject;
+	//private Sprite _itemSprite
 }
