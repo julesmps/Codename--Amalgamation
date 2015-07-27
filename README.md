@@ -18,6 +18,7 @@
 * Do not push unfinished or broken code to the repository
 
 ### Known bugs and operating nuances:
+* Must export scenes and prefabs as a package through dropbox
 * Scenes may not sync properly through GitHub, make a backup elsewhere as scenes may be erased during sync. Problem will be addressed in the near future
 * Prefabs do not sync properly either. This problem will also be addressed whenever a viable solution is presented
 
